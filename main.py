@@ -4,13 +4,19 @@ import requests
 
 
 def main():
+    session = requests.Session()
+
     ua = UserAgent()
-    headers = {'User-Agent': ua.random}
-    link = "https://stpav.altuofianco.com/"
-    response = requests.get(link, headers=headers).text
-    soup = BeautifulSoup(response, 'lxml')
-    title = soup.title.text
-    print(f'{title}: title')
+    headers = {"User-Agent": ua.random}
+    link = "http://lc-progeo.local/wp-login.php"
+    data = {"log": "test", "pwd": "test"}
+    response = session.post(link, data=data, headers=headers).text
+    print(f"{response}: response")
+
+    pages_link = "http://lc-progeo.local/wp-admin/edit.php?post_type=page"
+    response = session.get(pages_link, headers=headers).text
+    soup = BeautifulSoup()
+    wp_heading_inline = 
 
 
 if __name__ == "__main__":
