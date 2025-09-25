@@ -1,4 +1,5 @@
 from classes.Select import Select
+from modules.external_links import external_links
 from modules.get_seo import get_seo
 from modules.get_soup_after_download import get_soup_after_download
 from modules.get_url import get_url
@@ -13,13 +14,16 @@ def main():
 
 
 def menu(soup):
-    menu_items = ["Check Images", "Check SEO", "Exit"]
+    menu_items = ["Check Images", "Check SEO",  "External Links", "Exit"]
     selected = Select.select_one(menu_items)
     if selected == "Check Images":
         images_has_alt(soup)
         menu(soup)
     elif selected == "Check SEO":
         get_seo(soup)
+        menu(soup)
+    elif selected == "External Links":
+        external_links(soup)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")
