@@ -44,9 +44,24 @@ class Diet:
             headers.append(th.text)
         FileAction.writeToCsv([headers], filename.replace(".html", ".csv"))
         rows = []
+        health_dict = {}
         for tr in table.select("tr")[1:]:
             row = []
+            td = tr.select("td")
+            title = td[0].text
+            calories = td[1].text
+            proteins = td[2].text
+            fats = td[3].text
+            carbohydrates = td[4].text
             for td in tr.select("td"):
                 row.append(td.text)
+                health_dict[title] = {
+                    "calories": calories,
+                    "proteins": proteins,
+                    "fats": fats,
+                    "carbohydrates": carbohydrates,
+                }
             rows.append(row)
-        FileAction.writeToCsv(rows, filename.replace(".html", ".csv"), append=True)
+        FileAction.writeToCsv(rows, filename.replace(
+            ".html", ".csv"), append=True)
+        FileAction.saveToJson(health_dict, filename.replace(".html", ".json"))
