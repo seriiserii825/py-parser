@@ -1,3 +1,4 @@
+from classes.Command import Command
 from classes.Print import Print
 
 
@@ -12,5 +13,6 @@ def images_has_alt(sup):
         Print.error(f"Found {len(without_alt)} images without alt attribute:")
         for img in without_alt:
             Print.info(img)
+        Print.info("You can view the file with bat index.html")
     else:
         Print.success("All images have alt attributes.")
