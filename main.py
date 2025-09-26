@@ -5,6 +5,7 @@ from modules.get_soup_after_download import get_soup_after_download
 from modules.get_url import get_url
 from modules.hash_links import hash_links
 from modules.images_has_alt import images_has_alt
+from modules.phone_watsapp import phone_watsapp
 
 
 def main():
@@ -15,7 +16,8 @@ def main():
 
 
 def menu(soup):
-    menu_items = ["Check Images", "Check SEO",  "External Links",  "Hash Links", "Exit"]
+    menu_items = ["Check Images", "Check SEO",  "External Links",
+                  "Hash Links",  "Phone Watsapp", "Exit"]
     selected = Select.select_one(menu_items)
     if selected == "Check Images":
         images_has_alt(soup)
@@ -28,6 +30,9 @@ def menu(soup):
         menu(soup)
     elif selected == "Hash Links":
         hash_links(soup)
+        menu(soup)
+    elif selected == "Phone Watsapp":
+        phone_watsapp(soup)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")
