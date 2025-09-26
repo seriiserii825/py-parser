@@ -1,4 +1,5 @@
 from classes.Select import Select
+from modules.duplicate_ids import duplicate_ids
 from modules.external_links import external_links
 from modules.get_seo import get_seo
 from modules.get_soup_after_download import get_soup_after_download
@@ -17,7 +18,7 @@ def main():
 
 def menu(soup):
     menu_items = ["Check Images", "Check SEO",  "External Links",
-                  "Hash Links",  "Phone Watsapp", "Exit"]
+                  "Hash Links",  "Phone Watsapp",  "Duplicate Ids", "Exit"]
     selected = Select.select_one(menu_items)
     if selected == "Check Images":
         images_has_alt(soup)
@@ -33,6 +34,9 @@ def menu(soup):
         menu(soup)
     elif selected == "Phone Watsapp":
         phone_watsapp(soup)
+        menu(soup)
+    elif selected == "Duplicate Ids":
+        duplicate_ids(soup)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")
