@@ -12,3 +12,4 @@ and
 altuofianco
 uploads
 wp-content
+bludelego
