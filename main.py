@@ -9,6 +9,7 @@ from modules.hash_links import hash_links
 from modules.have_lorem import have_lorem
 from modules.images_has_alt import images_has_alt
 from modules.phone_watsapp import phone_watsapp
+from modules.spell_check import spell_check
 
 
 def main():
@@ -20,7 +21,8 @@ def main():
 
 def menu(soup):
     menu_items = ["Check Images", "Check SEO",  "External Links",
-                  "Hash Links",   "Empty Links", "Phone Watsapp",  "Duplicate Ids",  "Have Lorem", "Exit"]
+                  "Hash Links",   "Empty Links", "Phone Watsapp",  "Duplicate Ids",
+                  "Have Lorem",  "SpellCheck", "Exit"]
     selected = Select.select_one(menu_items)
     if selected == "Check Images":
         images_has_alt(soup)
@@ -45,6 +47,9 @@ def menu(soup):
         menu(soup)
     elif selected == "Have Lorem":
         have_lorem(soup)
+        menu(soup)
+    elif selected == "SpellCheck":
+        spell_check(soup)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")
