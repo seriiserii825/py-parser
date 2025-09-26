@@ -6,7 +6,7 @@ from classes.Select import Select
 
 def get_url():
     url = ""
-    options = ['Choose url from clipboard', 'Select saved urls']
+    options = ['Select saved urls', 'Choose url from clipboard']
     select_url = Select.select_with_fzf(options)
     ph = PathHelper()
     script_dir = ph.script_dir.parent   # ✅ works

@@ -1,3 +1,4 @@
+import os
 import re
 import unicodedata
 from classes.PathHelper import PathHelper
@@ -32,6 +33,8 @@ def spell_check(soup):
     ph = PathHelper()
     script_dir = ph.script_directory.parent
     EXCLUDED_FILE_PATH = script_dir / "excluded_words.txt"
+    if not EXCLUDED_FILE_PATH.exists():
+        os.system(f"touch {EXCLUDED_FILE_PATH}")
 
     Print.info("Starting spell check...")
     with open(EXCLUDED_FILE_PATH, "r") as f:
@@ -99,14 +102,15 @@ def spell_check(soup):
         Print.success("No spelling issues found in visible text.")
 
     if to_exclude:
-        agree = input("Save some of excluded words to a file now?, y/n")
+        Print.info("You can save some of the excluded words to excluded_words.txt")
+        agree = input("Save words to a file now?, y/n: ")
         if agree.lower() == "y":
             excludeToFile(to_exclude, EXCLUDED_FILE_PATH)
 
 
 def excludeToFile(words, EXCLUDED_FILE_PATH):
     words_to_exclude = Select.select_term_menu(words)
-    with open(EXCLUDED_FILE_PATH, "w") as f:
+    with open(EXCLUDED_FILE_PATH, "a") as f:
         for word in words_to_exclude:
             f.write(f"{word}\n")
     Print.info("Excluded words saved to excluded_words.txt")
