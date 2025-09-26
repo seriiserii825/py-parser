@@ -2,3 +2,4 @@
 SRL
 gmail
 image
+cookie
