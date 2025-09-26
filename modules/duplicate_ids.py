@@ -4,8 +4,11 @@ from classes.Print import Print
 def duplicate_ids(soup):
     ids = {}
     for tag in soup.find_all(True):
-        if 'id' in tag.attrs:
-            id_value = tag['id']
+        if "id" in tag.attrs:
+            # skip if inside an <svg> element
+            if tag.find_parent("svg"):
+                continue
+            id_value = tag["id"]
             if id_value in ids:
                 ids[id_value] += 1
             else:
