@@ -1,4 +1,5 @@
 from classes.Select import Select
+from modules.all_seo import all_seo
 from modules.duplicate_ids import duplicate_ids
 from modules.empty_links import empty_links
 from modules.external_links import external_links
@@ -16,13 +17,13 @@ def main():
     url = get_url()
     if url:
         soup = get_soup_after_download(url)
-        menu(soup)
+        menu(soup, url)
 
 
-def menu(soup):
+def menu(soup, url=None):
     menu_items = ["Check Images", "Check SEO",  "External Links",
                   "Hash Links",   "Empty Links", "Phone Watsapp",  "Duplicate Ids",
-                  "Have Lorem",  "SpellCheck", "Exit"]
+                  "Have Lorem",  "SpellCheck",  "All Seo", "Exit"]
     selected = Select.select_one(menu_items)
     if selected == "Check Images":
         images_has_alt(soup)
@@ -50,6 +51,9 @@ def menu(soup):
         menu(soup)
     elif selected == "SpellCheck":
         spell_check_func(soup)
+        menu(soup)
+    elif selected == "All Seo":
+        all_seo(url)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")
