@@ -9,7 +9,7 @@ from modules.hash_links import hash_links
 from modules.have_lorem import have_lorem
 from modules.images_has_alt import images_has_alt
 from modules.phone_watsapp import phone_watsapp
-from modules.spell_check import spell_check
+from modules.spell_check_func import spell_check_func
 
 
 def main():
@@ -49,7 +49,7 @@ def menu(soup):
         have_lorem(soup)
         menu(soup)
     elif selected == "SpellCheck":
-        spell_check(soup)
+        spell_check_func(soup)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")

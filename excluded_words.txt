@@ -3,3 +3,12 @@ SRL
 gmail
 image
 cookie
+com
+https
+it
+png
+icon
+and
+altuofianco
+uploads
+wp-content
