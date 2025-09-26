@@ -8,7 +8,7 @@ def phone_watsapp(soup):
     for phone in phones:
         href = phone.get("href")
         phone_number = href.split("tel:")[1]
-        if not phone_number.startswith("+39"):
+        if not phone_number.startswith("39"):
             Print.error(f"Phone number {phone_number} does not start with +39")
             phones_fails.append(phone_number)
     if not phones_fails:
