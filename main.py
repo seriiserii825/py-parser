@@ -21,15 +21,15 @@ def main():
 
 
 def menu(soup, url=None):
-    menu_items = ["Check Images", "Check SEO",  "External Links",
+    menu_items = ["Check Images", "SEO",  "External Links",
                   "Hash Links",   "Empty Links", "Phone Watsapp",  "Duplicate Ids",
-                  "Have Lorem",  "SpellCheck",  "All Seo", "Exit"]
+                  "Have Lorem",  "SpellCheck",  "Exit"]
     selected = Select.select_one(menu_items)
     if selected == "Check Images":
         images_has_alt(soup)
         menu(soup)
-    elif selected == "Check SEO":
-        get_seo(soup)
+    elif selected == "SEO":
+        all_seo(url, soup)
         menu(soup)
     elif selected == "External Links":
         external_links(soup)
@@ -51,9 +51,6 @@ def menu(soup, url=None):
         menu(soup)
     elif selected == "SpellCheck":
         spell_check_func(soup)
-        menu(soup)
-    elif selected == "All Seo":
-        all_seo(url)
         menu(soup)
     elif selected == "Exit":
         print("Exiting...")
