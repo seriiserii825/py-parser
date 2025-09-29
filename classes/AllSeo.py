@@ -62,6 +62,38 @@ class AllSeo:
         mt = MyTable()
         mt.show("Headings", table_columns, table_rows)
 
+    def missing_meta(self, sup):
+        missing = []
+        pages = self.get_sitemap_pages_url()
+        for page_url in pages:
+            page_soup = get_soup_after_download(page_url)
+            if not page_soup:
+                Print.error(f"Failed to download or parse the page: {page_url}")
+                continue
+            title = page_soup.title.string if page_soup.title else ""
+            description_tag = page_soup.select('meta[name="description"]')
+            if description_tag:
+                description = description_tag[0]["content"]
+            else:
+                description = "No description"
+            if not title or not description:
+                missing.append(
+                    {
+                        "url": page_url,
+                        "title": title if title else "Missing",
+                        "description": description if description else "Missing",
+                    }
+                )
+        if missing:
+            table_columns = ["URL", "Title", "Description"]
+            table_rows = []
+            for item in missing:
+                table_rows.append([item["url"], item["title"], item["description"]])
+            mt = MyTable()
+            mt.show("Pages with Missing Meta", table_columns, table_rows)
+        else:
+            Print.success("All pages have title and meta description.")
+
     def get_tags_from_soup(self, tag_name, sup) -> list[str]:
         tags = sup.find_all(tag_name)
         out: list[str] = []
