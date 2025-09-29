@@ -1,5 +1,6 @@
 import csv
 import json
+from bs4 import BeautifulSoup
 
 
 class FileAction():
@@ -11,7 +12,6 @@ class FileAction():
 
     @staticmethod
     def getSoupFromFile(filename):
-        from bs4 import BeautifulSoup
         with open(filename, "r", encoding="utf-8") as file:
             text = file.read()
         return BeautifulSoup(text, "lxml")
