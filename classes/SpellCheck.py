@@ -71,8 +71,8 @@ class SpellCheck:
         Print.info(
             "You can save some of the excluded words to excluded_words.txt")
         agree = input("Save words to a file now?, y/n: ")
-        selected_words = Select.select_with_fzf(excluded_words)
         if agree.lower() == "y":
+            selected_words = Select.select_with_fzf(excluded_words)
             self.excludeToFile(selected_words, self.EXCLUDED_FILE_PATH)
 
     def get_misspelled_words(self, text, excluded_words, h):
