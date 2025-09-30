@@ -30,7 +30,7 @@ def get_url():
         url_file = url_file
         if not url_file.exists():
             Print.error(f"No urls.txt file found at {url_file}")
-            return
+            raise FileNotFoundError(f"No urls.txt file found at {url_file}")
         with open(url_file, "r") as f:
             urls = [line.strip() for line in f if line.strip()]
         selected_url = Select.select_with_fzf(urls)
@@ -38,8 +38,7 @@ def get_url():
             url = selected_url[0]
             return url
         else:
-            Print.error("No URL selected.")
-            return
+            raise ValueError("No URL selected")
 
 
 def is_http_url(s: str) -> bool:
