@@ -62,7 +62,7 @@ class AllSeo:
         mt = MyTable()
         mt.show("Headings", table_columns, table_rows)
 
-    def missing_meta(self, sup):
+    def missing_meta(self):
         missing = []
         pages = self.get_sitemap_pages_url()
         for page_url in pages:
@@ -75,7 +75,7 @@ class AllSeo:
             if description_tag:
                 description = description_tag[0]["content"]
             else:
-                description = "No description"
+                description = ""
             if not title or not description:
                 missing.append(
                     {
@@ -168,16 +168,16 @@ class AllSeo:
                 "h3_text": h3_text,
             }
         for page, seo_data in pages.items():
-            Print.info(f"\nPage URL: {page}")
-            print(f"Title: {seo_data['title']}")
-            print(f"Description: {seo_data['description']}")
-            print(f"OG Image: {seo_data['og_image']}")
-            if seo_data["h1_tags"]:
-                print("---------" * 20)
-                self.print_h_tag(seo_data["h1_tags"], "H1")
-            if seo_data["h2_text"]:
-                print("---------" * 20)
-                self.print_h_tag(seo_data["h2_text"], "H2")
-            if seo_data["h3_text"]:
-                print("---------" * 20)
-                self.print_h_tag(seo_data["h3_text"], "H3")
+            table_columns = ["Field", "Value"]
+            table_rows = [
+                ["Title",       seo_data["title"]],
+                ["Description", seo_data["description"]],
+                ["H1",          ", ".join(seo_data["h1_tags"]) if seo_data["h1_tags"] else "No H1"],
+                ["H2",          ", ".join(seo_data["h2_text"]) if seo_data["h2_text"] else "No H2"],
+                ["H3",          ", ".join(seo_data["h3_text"]) if seo_data["h3_text"] else "No H3"],
+                ["OG Image",    seo_data["og_image"]],
+                ["URL",         page],
+            ]
+
+            mt = MyTable()
+            mt.show(f"SEO Data for {page}", table_columns, table_rows)
