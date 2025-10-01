@@ -174,7 +174,6 @@ class AllSeo:
     def show_all_pages(self):
         pages = {}
         sup = get_soup_after_download(self.xml_sitemap_url)
-        print(f"{sup}: sup")
         loc_all = sup.select("loc")
         links = []
         for loc in loc_all:
