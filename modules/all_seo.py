@@ -10,6 +10,8 @@ def all_seo(url, soup):
         "Select a page",
         "Missing meta",
         "Show all pages",
+        "Download all pages",
+        "Select to download from sitemap",
         "Exit",
     ]
     selected_option = Select.select_one(menu_options)
@@ -24,6 +26,12 @@ def all_seo(url, soup):
         als.missing_meta()
     elif selected_option == "Show all pages":
         als.show_all_pages()
+    elif selected_option == "Download all pages":
+        als.download_all_pages_from_sitemap()
+        exit(0)
+    elif selected_option == "Select to download from sitemap":
+        als.select_to_download_from_sitemap()
+        exit(0)
     else:
         Print.error("Invalid option selected.")
         exit(1)

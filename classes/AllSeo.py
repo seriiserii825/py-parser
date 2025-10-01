@@ -104,6 +104,28 @@ class AllSeo:
                 out.append(text)
         return out
 
+    def download_all_pages_from_sitemap(self):
+        pages = self.get_sitemap_pages_url()
+        all_soups = []
+        for page in pages:
+            page_soup = get_soup_after_download(page)
+            if page_soup:
+                all_soups.append(page_soup)
+            else:
+                Print.error(f"Failed to download or parse the page: {page}")
+        return all_soups
+
+    def select_from_sitemap(self):
+        pages = self.get_sitemap_pages_url()
+        if not pages:
+            Print.error("No pages found in sitemap.")
+            return None
+        selected_page = Select.select_one(pages)
+        if not selected_page:
+            Print.error("No page selected.")
+            return None
+        return selected_page
+
     def select_a_page(self):
         pages = self.get_sitemap_pages_url()
         if not pages:
@@ -129,6 +151,25 @@ class AllSeo:
             url = loc.get_text()
             pages.append(url)
         return pages
+
+    def select_to_download_from_sitemap(self):
+        root_sitemap_url = self.xml_sitemap_url
+        sup = get_soup_after_download(root_sitemap_url)
+        loc_all = sup.select("loc")
+        links = []
+        for loc in loc_all:
+            url = loc.get_text()
+            links.append(url)
+        selected_url = Select.select_one(links)
+        inner_links = []
+        page_soup = get_soup_after_download(selected_url)
+        loc_all_page = page_soup.select("loc")
+        for loc in loc_all_page:
+            page_url = loc.get_text()
+            inner_links.append(page_url)
+        for link in inner_links:
+            get_soup_after_download(link)
+        return
 
     def show_all_pages(self):
         pages = {}
@@ -170,13 +211,22 @@ class AllSeo:
         for page, seo_data in pages.items():
             table_columns = ["Field", "Value"]
             table_rows = [
-                ["Title",       seo_data["title"]],
+                ["Title", seo_data["title"]],
                 ["Description", seo_data["description"]],
-                ["H1",          ", ".join(seo_data["h1_tags"]) if seo_data["h1_tags"] else "No H1"],
-                ["H2",          ", ".join(seo_data["h2_text"]) if seo_data["h2_text"] else "No H2"],
-                ["H3",          ", ".join(seo_data["h3_text"]) if seo_data["h3_text"] else "No H3"],
-                ["OG Image",    seo_data["og_image"]],
-                ["URL",         page],
+                [
+                    "H1",
+                    ", ".join(seo_data["h1_tags"]) if seo_data["h1_tags"] else "No H1",
+                ],
+                [
+                    "H2",
+                    ", ".join(seo_data["h2_text"]) if seo_data["h2_text"] else "No H2",
+                ],
+                [
+                    "H3",
+                    ", ".join(seo_data["h3_text"]) if seo_data["h3_text"] else "No H3",
+                ],
+                ["OG Image", seo_data["og_image"]],
+                ["URL", page],
             ]
 
             mt = MyTable()
