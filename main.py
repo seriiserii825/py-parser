@@ -14,8 +14,15 @@ from modules.spell_check_func import spell_check_func
 
 
 def main():
-    url = main_menu()
-    print(f"url from main_menu: {url}")
+    k, url = main_menu()
+    if k == "page":
+        print(f"Checking single page: {url}")
+    if k == "sitemap":
+        print(f"Checking sitemap: {url}")
+    if k == "exit":
+        print("Exiting...")
+        return
+
     # soup = get_soup_after_download(url)
     #
     # def menu(soup):
