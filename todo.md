@@ -1,2 +1,2 @@
-seo menu bug with url
-seo missing meta show all but some of the pages didnt have them
+when select sitemap, url need to be origin
+- for post types need to change sitemap url post-type-sitemap.xml
